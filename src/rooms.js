@@ -1,8 +1,16 @@
+import fs from 'fs'
 
 
-function Member(member, socketId) {
-	this.id = member
-	this.name = ""
+function Member(userId, socketId) {
+
+	const USERS = fs.readFileSync(process.env.userDataFile)
+	const user = USERS.users[userId]
+
+	this.id = userId
+	this.name = user.name
+	this.birth = user.birth
+	this.city = user.city
+	this.university = user.university
 	this.icon = ( Math.random() * 19 ) + '.jpg'
 	this.ready = false
 

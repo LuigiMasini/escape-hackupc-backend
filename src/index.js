@@ -17,7 +17,7 @@ const options = {
 };*/
 
 
-const DATA = fs.readFileSync(process.env.dataFile)
+const DATA = fs.readFileSync(process.env.roomsDataFile)
 
 
 const persons = new NodeCache();
@@ -44,6 +44,8 @@ const io = new Server(server, {
 
 io.on('connection', sock => {
 	console.log("new connection, ", sock.id)
+
+	let updateLocationsTimeout
 
 	sock.send("welcome")
 
@@ -102,6 +104,10 @@ io.on('connection', sock => {
 		persons.set(id, person)
 		rooms.set(roomId, room)
 
+		const members = room.members.map(userId => persons.get(userId)).map(({name, icon, birth, city, university}) => ({name, icon, birth, city, university}))
+
+		io.to(roomId).emit("members", )
+
 	})
 
 
@@ -111,10 +117,18 @@ io.on('connection', sock => {
 		person.geolocation = geolocation
 		persons.set(sock.data.userId, person)
 
-		//TODO calculate distance
-		const distance = 0;	//WARNING tmp to skip searching phase
 
-		io.to(person.roomId).emit("distance", distance)
+		if (!updateLocationsTimeout)
+			updateLocationsTimeout = setTimeout(()=>{
+
+				const locations = rooms.get(person.roomId).members.map(userId => persons.get(userId).geolocation)
+
+				//TODO calculate distance
+				const distance = 0;	//WARNING tmp to skip searching phase
+
+				io.to(person.roomId).emit("locUpdate", distance, locations)
+
+			}, 1000)
 
 	})
 
@@ -166,7 +180,7 @@ io.on('connection', sock => {
 		var room = rooms.get(roomId)
 		room.solved.push(num)
 
-		if (room.solved.length >= 15){
+		if (room.solved.length >= 16){
 			room.status = "ended"
 			io.to(roomId).emit("status", "ended")
 		}
