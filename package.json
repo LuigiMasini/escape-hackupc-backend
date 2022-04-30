@@ -1,0 +1,17 @@
+{
+  "name": "escape-hackupc-backend",
+  "version": "0.1",
+  "description": "Backend for the Escape Hackaton game",
+  "main": "src/index.js",
+  "repository": "https://github.com/XEmAX32/HackUPC",
+  "author": "Luigi Masini <luigimasini.lm@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {}
+}
