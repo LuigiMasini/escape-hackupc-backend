@@ -17,8 +17,8 @@ const options = {
 };*/
 
 
-const DATA = fs.readFileSync(process.env.roomsDataFile)
-
+const DATA = JSON.parse(fs.readFileSync(process.env.roomsDataFile))
+const USERS = JSON.parse(fs.readFileSync(process.env.userDataFile))
 
 const persons = new NodeCache();
 const rooms = new NodeCache();
@@ -66,7 +66,7 @@ io.on('connection', sock => {
 	 *
 	 */
 
-	sock.on("register", ({id}) => {
+	sock.on("register", id => {
 
 		if (persons.has(id)) {
 			sock.send("Error: you are still playing on another device")
@@ -75,7 +75,7 @@ io.on('connection', sock => {
 		}
 
 		sock.data.userId = id
-		let person = new Member(id, sock.id)
+		let person = new Member(id, USERS.users[id] ?? USERS.users.default, sock.id)
 
 		var room, roomId
 
@@ -83,12 +83,14 @@ io.on('connection', sock => {
 		if (!!fillingRoomId && rooms.get(fillingRoomId).members.length < 4) {
 			roomId = fillingRoomId
 			room = rooms.get(fillingRoomId)
-			room.addMember(id)
 		}
 		else {	//create new room
 			roomId = (new Date()).getTime()
 			room = new Room (roomId)
+			fillingRoomId = roomId
 		}
+
+		room.members = [...room.members, id]
 
 		sock.join(roomId)
 		person.roomId = roomId
@@ -106,7 +108,7 @@ io.on('connection', sock => {
 
 		const members = room.members.map(userId => persons.get(userId)).map(({name, icon, birth, city, university}) => ({name, icon, birth, city, university}))
 
-		io.to(roomId).emit("members", )
+		io.to(roomId).emit("members", members)
 
 	})
 

@@ -1,11 +1,32 @@
 {
 	"users":{
-		"cjhcIUIDvfd": {
-			"id":"cjhcIUIDvfd",
+		"default": {
+			"id":"default",
+			"name":"Guest",
+			"birth":"",
+			"city":"Barcelona",
+			"university":"UPC"
+		},
+		"skTwnbHauqRiF": {
+			"id":"skTwnbHauqRiF",
 			"name":"Pietro Cappellini",
 			"birth":"",
 			"city":"Barcelona",
 			"university":"NABA"
+		},
+		"PBmrSNyRiIQ6j":{
+			"id":"PBmrSNyRiIQ6j",
+			"name":"Emanuele Sacco",
+			"birth":"",
+			"city":"Barcelona",
+			"university":"UNIMI"
+		},
+		"v1bocDrxTz6aW":{
+			"id":"v1bocDrxTz6aW",
+			"name":"Luigi Masini",
+			"birth":"",
+			"city":"Barcelona",
+			"university":"POLIMI"
 		}
 	}
-]}
+}

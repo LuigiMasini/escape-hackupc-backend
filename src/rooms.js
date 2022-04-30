@@ -1,17 +1,14 @@
 import fs from 'fs'
 
 
-function Member(userId, socketId) {
-
-	const USERS = fs.readFileSync(process.env.userDataFile)
-	const user = USERS.users[userId]
+function Member(userId, user, socketId) {
 
 	this.id = userId
 	this.name = user.name
 	this.birth = user.birth
 	this.city = user.city
 	this.university = user.university
-	this.icon = ( Math.random() * 19 ) + '.jpg'
+	this.icon = '/assets/propic'+( Math.floor(Math.random() * 19 ) ) + '.jpg'
 	this.ready = false
 
 	this.geolocation
@@ -26,10 +23,6 @@ function Room (id) {
 	this.id=id
 	this.members=[]
 	this.ready = 0
-
-	this.addMember = (memberId) => {
-		this.members.push(memberId)
-	}
 
 	this.status = "filling"		//filling, searching, ready, playing, ended
 
