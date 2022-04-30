@@ -1,24 +1,31 @@
 
 
-function Member(member) {
+function Member(member, socketId) {
 	this.id = member
-	this.status		//online, lost, quit
+	this.name = ""
+	this.icon = ( Math.random() * 19 ) + '.jpg'
+	this.ready = false
+
 	this.geolocation
+	this.socketId = socketId
+	this.roomId
+
+	this.objects = {}
+	this.items = {}
 }
 
 function Room (id) {
 	this.id=id
 	this.members=[]
+	this.ready = 0
 
 	this.addMember = (memberId) => {
 		this.members.push(memberId)
 	}
 
-	this.status		//filling, searching, ready, playing, ended
+	this.status = "filling"		//filling, searching, ready, playing, ended
 
-
-	//parte di gioco
-
+	this.solved = []	//bool
 }
 
 

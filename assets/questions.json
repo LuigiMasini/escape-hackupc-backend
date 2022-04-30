@@ -1,0 +1,21 @@
+{
+	"objects":[{
+		"name":"",
+		"text":"",
+		"question":0
+	}
+	],
+	"questions":[{
+		"id":0,
+		"text":"di che colore era il cavallo bianco di napolene",
+		"answers":["bianco", "nero"],
+		"hint":"prendetevi una pausa"
+	}
+	],
+	"items":[{
+		"text":"",
+		"keys":false,
+		"image":""
+	}
+	]
+}
