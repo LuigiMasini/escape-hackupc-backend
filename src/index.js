@@ -10,7 +10,7 @@ import {getRandom} from './utils.js'
 import NodeCache from 'node-cache'
 
 
-const roomSize = 1
+const roomSize = 4
 
 dotenv.config()
 /*
@@ -190,9 +190,9 @@ io.on('connection', sock => {
 				items = items.filter(item => !person.items.includes(item));
 				*/
 
-				person.wall = '/walls/'+wallImages[0]
+				person.wall = '/walls/'+wallImages[idx]
 				person.objects = objects
-				.filter( (obj,IDX) => rooms_object[0].includes(IDX) )
+				.filter( (obj,IDX) => rooms_object[idx].includes(IDX) )
 				.map( ({question, item, ...left}) => {
 
 					console.log(question, questions)
