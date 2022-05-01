@@ -1,5 +1,6 @@
 import fs from 'fs'
 
+const wallImages = ['wall0.jpg', 'wall1.jpg', 'wall2.jpg', 'wall3.jpg']
 
 function Member(userId, user, socketId) {
 
@@ -8,15 +9,17 @@ function Member(userId, user, socketId) {
 	this.birth = user.birth
 	this.city = user.city
 	this.university = user.university
-	this.icon = '/assets/propic'+( Math.floor(Math.random() * 19 ) ) + '.jpg'
+	this.icon = '/propics/'+( Math.floor(Math.random() * 19 ) ) + '.jpg'
 	this.ready = false
 
 	this.geolocation
 	this.socketId = socketId
 	this.roomId
 
-	this.objects = {}
-	this.items = {}
+	this.wall = ''
+	this.objects
+
+	this.solvedKey = false	//bool
 }
 
 function Room (id) {
@@ -26,8 +29,8 @@ function Room (id) {
 
 	this.status = "filling"		//filling, searching, ready, playing, ended
 
-	this.solved = []	//bool
+	this.solvedKeys = 0
 }
 
 
-export {Member, Room}
+export {Member, Room, wallImages}
